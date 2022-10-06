@@ -1,0 +1,9 @@
+# Helidon Project Configuration
+# >>> This is a generated file, do not edit. <<<
+#
+#Fri Sep 30 12:11:11 UTC 2022
+project.archetype=quickstart
+schema.version=1.1.0
+helidon.version=2.5.2
+project.flavor=mp
+project.directory=demo
