@@ -36,3 +36,16 @@ The folder `dataMP` contains a Maven project that makes use of Helidon MP 2.5.2 
 - Use JLink and the Class Data Sharing feature of the JVM to generate a small and fast starting fully contained Java application.
 
 Also, have a look at the `readme.MD` file in that folder to learn about the details.
+
+### dataSE
+
+The folder `dataSE` contains a Maven project that makes use of Helidon SE 2.5.2 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
+
+- Recommended usage of the Helidon SE integrated code : Reading configuration parameters and create Storage and initialise the Root.
+- Check MicroStream startup and initial data set-up using an integration test.
+- Add MicroStream info to Health and Metrics endpoints of Helidon (through the integration code)
+- Using a Docker image with volume mapping to store MicroStream storage outside of the container.
+- Using Kubernetes deployment and Service concepts to run the Helidon MP with MicroStream application.
+- Use JLink and the Class Data Sharing feature of the JVM to generate a small and fast starting fully contained Java application.
+
+Also, have a look at the `readme.MD` file in that folder to learn about the details.

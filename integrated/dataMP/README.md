@@ -107,8 +107,6 @@ curl  'http://localhost:8080/user/'
 curl  'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec/book'
 ```
 
-
-
 ## Build the Docker Image
 
 ```
@@ -117,7 +115,7 @@ docker build -t demo .
 
 ## Start the application with Docker
 
-The MicroStream storage directory is mapped into the container so that data is not lost
+The MicroStream storage directory is mapped into the container so that data is not lost.
 
 ```
 docker run --rm -v microstream-data:/helidon/microstream-data -p 8080:8080 demo:latest
