@@ -51,7 +51,7 @@ public final class Main {
         // By default, this will pick up application.yaml from the classpath
         Config config = Config.create();
 
-        // Create and initialise the storage mananger
+        // Create and initialise the storage manager
         EmbeddedStorageManager storageManager = DB.createStorageManager(config);
 
         WebServer server = WebServer.builder(createRouting(storageManager))

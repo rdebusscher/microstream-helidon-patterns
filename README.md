@@ -26,7 +26,9 @@ Native compilation is not fully supported.
 
 ### dataMP
 
-The folder `dataMP` contains a Maven project that makes use of Helidon MP 2.5.2 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
+Requires JDK 11+ and is using Jakarta EE 8 specification (Jakarta namespace).
+
+The folder `dataMP` contains a Maven project that makes use of Helidon MP 2.5.4 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
 
 - Recommended usage of the Helidon MP integrated code
 - Use a CDI producer to provide the Root object as a CDI bean.
@@ -39,7 +41,9 @@ Also, have a look at the `readme.MD` file in that folder to learn about the deta
 
 ### dataSE
 
-The folder `dataSE` contains a Maven project that makes use of Helidon SE 2.5.2 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
+Requires JDK 11+.
+
+The folder `dataSE` contains a Maven project that makes use of Helidon SE 2.5.4 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
 
 - Recommended usage of the Helidon SE integrated code : Reading configuration parameters and create Storage and initialise the Root.
 - Check MicroStream startup and initial data set-up using an integration test.

@@ -4,7 +4,8 @@ Sample Helidon SE project that make use of MicroStream.
 
 ## Creating the project
 
-You can start from the Helidon Starter webpage https://helidon.io/starter/2.5.2 or from the Helidon CLI with `helidon init` to create a basic project structure using Helidon SE.
+You can start from the Helidon Starter webpage https://helidon.io/starter and select the version (2.5.x or 3.0.x) or from the Helidon CLI with `helidon init` to create a basic project structure using Helidon SE.
+
 
 > **_NOTE:_** Helidon SE is mainly created with reactive programming in mind. Since you are using a single shared data structure (your data in memory) this must be protected properly for concurrent (modification) access. Also, the Lazy loading option of MicroStream is a blocking operation.
 
@@ -55,7 +56,7 @@ List all users
 curl 'http://localhost:8080/user/'
 ```
 
-List non-existing  user -> status 404
+List non-existing user -> status 404
 ```
 curl -v 'http://localhost:8080/user/abc'
 ```
@@ -71,7 +72,7 @@ curl -X POST 'http://localhost:8080/user/' \
 --header 'Content-Type: application/json' \
 --data-raw '{"name": "Rudy", "email": "rudy@microstream.one"}'
 ```
--> store the id of this added user.
+-> Remember the id of this added user.
 
 List books of user (use id of added user)
 ```
@@ -95,7 +96,7 @@ curl -X PATCH 'http://localhost:8080/user/008ba677-2fc9-4dc2-a1b4-30be69f4bce1' 
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 ```
 
-Stop and start Spring boot application
+Stop and start Helidon application
 Are data stored?
 
 ```

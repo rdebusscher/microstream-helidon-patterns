@@ -4,7 +4,7 @@ Sample Helidon MP project that make use of MicroStream.
 
 ## Creating the project
 
-You can start from the Helidon Starter webpage https://helidon.io/starter/2.5.2 or from the Helidon CLI with `helidon init` to create a basic project structure using Helidon MP.
+You can start from the Helidon Starter webpage https://helidon.io/starter and select the version (2.5.x or 3.0.x) or from the Helidon CLI with `helidon init` to create a basic project structure using Helidon MP.
 
 > **_NOTE:_** This example uses the Helidon provided code and not the CDI integration of MicroStream. this integration is provided by Helidon itself.
 
@@ -20,7 +20,7 @@ Add the following Helidon integration extension dependencies to make use of Micr
 Define the MicroStream configuration parameters in any source that is supported by the Helidon MicroProfile Config implementations.  In this example, we put the following values in the `META-INF/microprofile-config.properties` file.
 
 ```
-one.microstream.storage.bookstore.storage-directory=microstream-data
+one.microstream.bookstore.storage-directory=microstream-data
 ```
 
 Other configuration parameters are also possible but this one defines the location of the MicroStream storage for a StorageManager that we call _bookstore_.
@@ -45,7 +45,11 @@ mvn package
 java -jar target/demo.jar
 ```
 
+When starting in debug mode
+
+```bash
 java '-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005' -jar target/demo.jar
+```
 
 ## Exercise the application
 
@@ -99,7 +103,7 @@ curl -X PATCH 'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec' 
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 ```
 
-Stop and start Spring boot application
+Stop and start Helidon application
 Are data stored?
 
 ```
