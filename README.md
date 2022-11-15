@@ -26,7 +26,7 @@ Native compilation is not fully supported.
 
 ### dataMP
 
-Requires JDK 11+ and is using Jakarta EE 8 specification (Jakarta namespace).
+Requires JDK 11+ and is using Jakarta EE 8 specification (javax namespace).
 
 The folder `dataMP` contains a Maven project that makes use of Helidon MP 2.5.4 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
 
@@ -50,6 +50,20 @@ The folder `dataSE` contains a Maven project that makes use of Helidon SE 2.5.4 
 - Add MicroStream info to Health and Metrics endpoints of Helidon (through the integration code)
 - Using a Docker image with volume mapping to store MicroStream storage outside of the container.
 - Using Kubernetes deployment and Service concepts to run the Helidon MP with MicroStream application.
+- Use JLink and the Class Data Sharing feature of the JVM to generate a small and fast starting fully contained Java application.
+
+Also, have a look at the `readme.MD` file in that folder to learn about the details.
+
+### dataMP3
+
+Requires JDK 17+ and is using Jakarta EE 9.1 specification (jakarta namespace).
+
+The folder `dataMP3` contains a Maven project that makes use of Helidon MP 3.0.2 to implement a small application with REST endpoints storing the data using MicroStream. Highlights:
+
+- Recommended usage of the Helidon MP integrated code
+- Use a CDI producer to provide the Root object as a CDI bean.
+- Check MicroStream startup and initial data set-up using a `HelidonTest`.
+- Using a Docker image with volume mapping to store MicroStream storage outside of the container.
 - Use JLink and the Class Data Sharing feature of the JVM to generate a small and fast starting fully contained Java application.
 
 Also, have a look at the `readme.MD` file in that folder to learn about the details.

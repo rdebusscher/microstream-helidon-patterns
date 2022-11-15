@@ -38,8 +38,8 @@ In this demo, the root class of the Object graph is also made injectable by mean
 
 ## Build and run
 
-With JDK11+
 
+With JDK17+
 ```bash
 mvn package
 java -jar target/demo.jar
@@ -83,22 +83,22 @@ curl -X POST 'http://localhost:8080/user/' \
 
 List books of user (use id of added user)
 ```
-curl  'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec/book'
+curl  'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d/book'
 ```
 
 Add book to user (use id of added user)
 ```
-curl -X POST 'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec/book/9780141321097'
+curl -X POST 'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d/book/9780141321097'
 ```
 
 List again
 ```
-curl  'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec/book'
+curl  'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d/book'
 ```
 
 Update user
 ```
-curl -X PATCH 'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec' \
+curl -X PATCH 'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d' \
 --header 'Content-Type: application/json' \
 --data-raw '{"email": "r.debusscher@microstream.one"}'
 ```
@@ -108,11 +108,12 @@ Are data stored?
 
 ```
 curl  'http://localhost:8080/user/'
-curl  'http://localhost:8080/user/ffed3d8e-e64f-4437-9cff-9ee050e61bec/book'
+curl  'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d/book'
 ```
 
-## Build the Docker Image
 
+
+## Building the Docker Image
 ```
 docker build -t demo .
 ```
@@ -125,84 +126,4 @@ The MicroStream storage directory is mapped into the container so that data is n
 docker run --rm -v microstream-data:/helidon/microstream-data -p 8080:8080 demo:latest
 ```
 
-Exercise the application as described above.
-
-## Deploy the application to Kubernetes
-
-```
-kubectl cluster-info                         # Verify which cluster
-kubectl get pods                             # Verify connectivity to cluster
-kubectl create -f app.yaml                   # Deploy application
-kubectl get pods                             # Wait for demo pod to be RUNNING
-kubectl get service demo                     # Verify deployed service
-```
-
-Note the PORTs. You can now exercise the application as you did before but use the second
-port number (the NodePort) instead of 8080.
-
-Kill pod does not preserve data
-
-31177
-
-curl  'http://localhost:31177/user/'
-
-curl -X POST 'http://localhost:31177/user/' \
---header 'Content-Type: application/json' \
---data-raw '{"name": "Rudy", "email": "rudy@microstream.one"}'
-
-
-After you’re done, cleanup.
-
-```
-kubectl delete -f app.yaml
-```
-
-
-## Build a Java Runtime Image using jlink
-
-You can build a custom Java Runtime Image (JRI) containing the application jars and the JDK modules
-on which they depend. This image also:
-
-* Enables Class Data Sharing by default to reduce startup time.
-* Contains a customized `start` script to simplify CDS usage and support debug and test modes.
-
-You can build a custom JRI in two different ways:
-* Local
-* Using Docker
-
-
-### Local build
-
-```
-# build the JRI
-mvn package -Pjlink-image
-```
-
-See https://github.com/oracle/helidon-build-tools/tree/master/helidon-maven-plugin#goal-jlink-image
- for more information.
-
-Start the application:
-
-```
-./target/demo-jri/bin/start
-```
-
-### Multi-stage Docker build
-
-Build the JRI as a Docker Image
-
-```
-docker build -t demo-jri -f Dockerfile.jlink .
-```
-
-Start the application:
-
-```
-docker run --rm -v microstream-data:/helidon/microstream-data -p 8080:8080 demo-jri:latest
-```
-
-See the start script help:
-
-```
-docker run --rm demo-jri:latest --help
-```
+Exercise the application as described above.                                
