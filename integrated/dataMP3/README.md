@@ -111,7 +111,90 @@ curl  'http://localhost:8080/user/'
 curl  'http://localhost:8080/user/e7c07c8e-df40-462d-9d08-6a935d39806d/book'
 ```
 
+## Try health and metrics
 
+There is also a HealthCheck available for the MicroStream StorageManager. It checks if it is still running or not.  You can add it to the Helidon checks by following the following steps.
+
+Add the Maven dependency with the code that creates the healthcheck.
+
+```
+    <dependency>
+        <groupId>io.helidon.integrations.microstream</groupId>
+        <artifactId>helidon-integrations-microstream-health</artifactId>
+    </dependency>
+```
+
+And configure the healthcheck by defining a CDI bean Liveness check that forwards to the `MicrostreamHealthCheck``
+
+```
+@ApplicationScoped
+@Liveness
+public class MicroStreamHealth implements HealthCheck {
+
+    @Inject
+    @MicrostreamStorage(configNode = "one.microstream.storage.bookstore")
+    private EmbeddedStorageManager storageManager;
+
+    @Override
+    public HealthCheckResponse call() {
+        return MicrostreamHealthCheck.create(storageManager)
+                .call();
+    }
+}
+```
+
+The health can be checked through the health endpoint of Helidon.
+
+```
+curl -s -X GET http://localhost:8080/health
+```
+
+To add MicroStream metrics to the endpoint of Helidon, you need to add the MicroStream metrics to the registry. This can be done when the application starts. First, add the dependency:
+
+```
+    <dependency>
+        <groupId>io.helidon.integrations.microstream</groupId>
+        <artifactId>helidon-integrations-microstream-metrics</artifactId>
+    </dependency>
+```
+
+And the following class register the metrics. These metrics are
+
+- The number of datafiles (fixed number)
+- The size of data within the storage maintained by MicroStream (live and total size)
+
+```
+@ApplicationScoped
+public class MicroStreamMetrics {
+
+    @Inject
+    @MicrostreamStorage(configNode = "one.microstream.storage.bookstore")
+    private EmbeddedStorageManager storageManager;
+
+    public void onStart(@Observes @Initialized(ApplicationScoped.class) Object pointless) {
+        RegistryFactory metricsRegistry = RegistryFactory.getInstance();
+
+        MicrostreamMetricsSupport microstreamMetrics = MicrostreamMetricsSupport
+                .builder(storageManager)
+                .registryFactory(metricsRegistry)
+                .build();
+
+        microstreamMetrics.registerMetrics();
+    }
+}
+```
+
+By default, the metric are returned in the Prometheus format.
+
+```
+curl -s -X GET http://localhost:8080/metrics
+```
+
+JSON Format is also supported
+
+```
+curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
+```
 
 ## Building the Docker Image
 ```
